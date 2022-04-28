@@ -24,6 +24,4 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
   return { props: { feedItem: maybeFeedItem } };
 };
 
-// Local testing with something like http://localhost:3000/yetzt-proxy/posts/b74vh0-ko
-
 export default Page;

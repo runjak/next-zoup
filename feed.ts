@@ -127,7 +127,7 @@ export const fetchFeedItem = async (url: URL): Promise<FeedItem | null> => {
 export type Feed = {
   version: "https://jsonfeed.org/version/1.1";
   title: string;
-  description: string;
+  description?: string;
   home_page_url: string;
   feed_url: string;
   /**
@@ -161,7 +161,7 @@ export const isFeed = (maybeFeed: unknown): maybeFeed is Feed => {
 
     const okVersion = version === "https://jsonfeed.org/version/1.1";
     const okTitle = isString(title);
-    const okDescription = isString(description);
+    const okDescription = description === undefined || isString(description);
     const okHomePageUrl = isString(home_page_url);
     const okFeedUrl = isString(feed_url);
     const okNextUrl = next_url === undefined || isString(next_url);
@@ -185,4 +185,17 @@ export const isFeed = (maybeFeed: unknown): maybeFeed is Feed => {
   }
 
   return false;
+};
+
+export const fetchFeed = async (url: URL): Promise<Feed | null> => {
+  try {
+    const response = await fetch(url.href);
+    const responseBody = await response.json();
+
+    if (isFeed(responseBody)) {
+      return responseBody;
+    }
+  } catch {}
+
+  return null;
 };

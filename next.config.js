@@ -6,6 +6,10 @@ const nextConfig = {
     return {
       beforeFiles: [
         {
+          source: '/yetzt-proxy/feed.json',
+          destination: "/api/yetzt-proxy"
+        },
+        {
           source: "/yetzt-proxy/posts/:id.json",
           destination: "/api/yetzt-proxy/posts/:id",
         },

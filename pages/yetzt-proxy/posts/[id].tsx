@@ -1,13 +1,14 @@
 import react, { FC } from "react";
 import { GetServerSideProps } from "next";
-import { fetchFeedItem, FeedItem } from "../../../feed";
+import { fetchFeedItem, FeedItem, Author } from "../../../feed";
+import Post from "../../../components/Post";
 
 type Props = {
   feedItem: FeedItem;
 };
 
 const Page: FC<Props> = (props) => {
-  return <code>{JSON.stringify(props.feedItem, null, 2)}</code>;
+  return <Post feedItem={props.feedItem} />;
 };
 
 export const getServerSideProps: GetServerSideProps<Props> = async (

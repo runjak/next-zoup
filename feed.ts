@@ -15,11 +15,13 @@ export const isAuthor = (maybeAuthor: unknown): maybeAuthor is Author => {
   if (isObject(maybeAuthor)) {
     const { name, url, avatar } = maybeAuthor as Record<string, unknown>;
 
-    return (
-      (isString(name) || name === undefined) &&
-      (isString(url) || url === undefined) &&
-      (isString(avatar) || avatar === undefined)
-    );
+    const okName = name === undefined || isString(name);
+    const okUrl = url === undefined || isString(url);
+    const okAvatar = avatar === undefined || isString(avatar);
+    const hasAny =
+      name !== undefined || url !== undefined || avatar !== undefined;
+
+    return okName && okUrl && okAvatar && hasAny;
   }
 
   return false;
@@ -66,6 +68,7 @@ export type FeedItem = {
   content_text?: string;
   tags: Array<string>;
   title?: string;
+  authors: Array<Author>;
   _zoup: Zoup;
 };
 
@@ -82,6 +85,7 @@ export const isFeedItem = (
       content_text,
       tags,
       title,
+      authors,
       _zoup,
     } = maybeFeedItem as Record<string, unknown>;
 
@@ -93,6 +97,8 @@ export const isFeedItem = (
     const okContent_text = content_text === undefined || isString(content_text);
     const okTags = isArray(tags) && every(tags, isString);
     const okTitle = title === undefined || isString(title);
+    const okAuthors =
+      isArray(authors) && authors.length > 0 && every(authors, isAuthor);
     const okZoup = isZoup(_zoup);
 
     return (
@@ -104,6 +110,7 @@ export const isFeedItem = (
       okContent_text &&
       okTags &&
       okTitle &&
+      okAuthors &&
       okZoup
     );
   }

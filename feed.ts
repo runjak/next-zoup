@@ -5,16 +5,13 @@
 import { every, isArray, isObject, isString } from "lodash";
 
 // FIXME subject to discussion in https://github.com/zoupio/spec/issues/3
-export type Author<url> = {
+export type Author = {
   name?: string;
-  url?: url;
-  avatar?: url;
+  url?: string;
+  avatar?: string;
 };
 
-export type RawAuthor = Author<string>;
-export type ParsedAuthor = Author<URL>;
-
-export const isRawAuthor = (maybeAuthor: unknown): maybeAuthor is RawAuthor => {
+export const isAuthor = (maybeAuthor: unknown): maybeAuthor is Author => {
   if (isObject(maybeAuthor)) {
     const { name, url, avatar } = maybeAuthor as Record<string, unknown>;
 
@@ -28,43 +25,29 @@ export const isRawAuthor = (maybeAuthor: unknown): maybeAuthor is RawAuthor => {
   return false;
 };
 
-export const parseAuthor = ({
-  name,
-  url,
-  avatar,
-}: RawAuthor): ParsedAuthor => ({
-  name,
-  url: url ? new URL(url) : undefined,
-  avatar: avatar ? new URL(avatar) : undefined,
-});
-
-export type Zoup<url> = {
-  from?: Author<url>;
-  via?: Author<url>;
-  reposts?: Array<Author<url>>;
-  reaction?: Author<url>;
-  reactions?: Array<Author<url>>;
+export type Zoup = {
+  from?: Author;
+  via?: Author;
+  reposts?: Array<Author>;
+  reaction?: Author;
+  reactions?: Array<Author>;
 };
 
-export type RawZoup = Zoup<string>;
-export type ParsedZoup = Zoup<URL>;
-
-export const isRawZoup = (maybeZoup: unknown): maybeZoup is RawZoup => {
+export const isZoup = (maybeZoup: unknown): maybeZoup is Zoup => {
   if (isObject(maybeZoup)) {
     const { from, via, reposts, reaction, reactions } = maybeZoup as Record<
       string,
       unknown
     >;
 
-    const okFrom = from === undefined || isRawAuthor(from);
-    const okVia = via === undefined || isRawAuthor(via);
+    const okFrom = from === undefined || isAuthor(from);
+    const okVia = via === undefined || isAuthor(via);
     const okReposts =
-      reposts === undefined ||
-      (isArray(reposts) && every(reposts, isRawAuthor));
-    const okReaction = reaction === undefined || isRawAuthor(reaction);
+      reposts === undefined || (isArray(reposts) && every(reposts, isAuthor));
+    const okReaction = reaction === undefined || isAuthor(reaction);
     const okReactions =
       reactions === undefined ||
-      (isArray(reactions) && every(reactions, isRawAuthor));
+      (isArray(reactions) && every(reactions, isAuthor));
 
     return okFrom && okVia && okReposts && okReaction && okReactions;
   }
@@ -72,36 +55,23 @@ export const isRawZoup = (maybeZoup: unknown): maybeZoup is RawZoup => {
   return false;
 };
 
-export const parseZoup = (rawZoup: RawZoup): ParsedZoup => {
-  const { from, via, reposts, reaction, reactions } = rawZoup;
-
-  return {
-    from: from ? parseAuthor(from) : undefined,
-    via: via ? parseAuthor(via) : undefined,
-    reposts: reposts ? reposts.map(parseAuthor) : undefined,
-    reaction: reaction ? parseAuthor(reaction) : undefined,
-    reactions: reactions ? reactions.map(parseAuthor) : undefined,
-  };
-};
-
-export type FeedItem<url, date> = {
+export type FeedItem = {
   id: string;
-  date_published: date;
-  date_modified: date;
-  url: url;
+  // According to https://www.jsonfeed.org/version/1.1/
+  // the date strings should follow https://tools.ietf.org/html/rfc3339
+  date_published: string;
+  date_modified: string;
+  url: string;
   content_html: string;
   content_text?: string;
   tags: Array<string>;
   title?: string;
-  _zoup: Zoup<url>;
+  _zoup: Zoup;
 };
 
-export type RawFeedItem = FeedItem<string, string>;
-export type ParsedFeedItem = FeedItem<URL, Date>;
-
-export const isRawFeedItem = (
+export const isFeedItem = (
   maybeFeedItem: unknown
-): maybeFeedItem is RawFeedItem => {
+): maybeFeedItem is FeedItem => {
   if (isObject(maybeFeedItem)) {
     const {
       id,
@@ -123,7 +93,7 @@ export const isRawFeedItem = (
     const okContent_text = content_text === undefined || isString(content_text);
     const okTags = isArray(tags) && every(tags, isString);
     const okTitle = title === undefined || isString(title);
-    const okZoup = isRawZoup(_zoup);
+    const okZoup = isZoup(_zoup);
 
     return (
       okId &&
@@ -141,40 +111,25 @@ export const isRawFeedItem = (
   return false;
 };
 
-export const parseFeedItem = (rawFeedItem: RawFeedItem): ParsedFeedItem => {
-  const {
-    id,
-    date_published,
-    date_modified,
-    url,
-    content_html,
-    content_text,
-    tags,
-    title,
-    _zoup,
-  } = rawFeedItem;
+export const fetchFeedItem = async (url: URL): Promise<FeedItem | null> => {
+  try {
+    const response = await fetch(url.href);
+    const responseBody = await response.json();
 
-  return {
-    id,
-    // FIXME is the date parsing here correct?
-    // According to https://www.jsonfeed.org/version/1.1/ the string should follow https://tools.ietf.org/html/rfc3339
-    date_published: new Date(date_published),
-    date_modified: new Date(date_modified),
-    url: new URL(url),
-    content_html,
-    content_text,
-    tags,
-    title,
-    _zoup: parseZoup(_zoup),
-  };
+    if (isFeedItem(responseBody)) {
+      return responseBody;
+    }
+  } catch {}
+
+  return null;
 };
 
-export type Feed<url, date> = {
+export type Feed = {
   version: "https://jsonfeed.org/version/1.1";
   title: string;
   description: string;
-  home_page_url: url;
-  feed_url: url;
+  home_page_url: string;
+  feed_url: string;
   /**
    * FIXME
    * https://www.jsonfeed.org/version/1.1/ states that the next_url shall be optional,
@@ -182,17 +137,14 @@ export type Feed<url, date> = {
    * If it is possible for a feed to have no more entries it would make sense to not have a next_url.
    * https://github.com/zoupio/spec/issues/4
    */
-  next_url?: url;
-  icon: url;
-  favicon: url;
-  authors: Array<Author<url>>;
-  items: Array<FeedItem<url, date>>;
+  next_url?: string;
+  icon: string;
+  favicon: string;
+  authors: Array<Author>;
+  items: Array<FeedItem>;
 };
 
-export type RawFeed = Feed<string, string>;
-export type ParsedFeed = Feed<URL, Date>;
-
-export const isRawFeed = (maybeFeed: unknown): maybeFeed is RawFeed => {
+export const isFeed = (maybeFeed: unknown): maybeFeed is Feed => {
   if (isObject(maybeFeed)) {
     const {
       version,
@@ -207,56 +159,30 @@ export const isRawFeed = (maybeFeed: unknown): maybeFeed is RawFeed => {
       items,
     } = maybeFeed as Record<string, unknown>;
 
-    const okVersion = (version === "https://jsonfeed.org/version/1.1");
+    const okVersion = version === "https://jsonfeed.org/version/1.1";
     const okTitle = isString(title);
     const okDescription = isString(description);
     const okHomePageUrl = isString(home_page_url);
     const okFeedUrl = isString(feed_url);
-    const okNextUrl = (next_url === undefined || isString(next_url));
+    const okNextUrl = next_url === undefined || isString(next_url);
     const okIcon = isString(icon);
     const okFavicon = isString(favicon);
-    const okAuthors = (isArray(authors) && every(authors, isRawAuthor));
-    const okItems = (isArray(items) && every(items, isRawFeedItem));
+    const okAuthors = isArray(authors) && every(authors, isAuthor);
+    const okItems = isArray(items) && every(items, isFeedItem);
 
-    return okVersion
-      && okTitle
-      && okDescription
-      && okHomePageUrl
-      && okFeedUrl
-      && okNextUrl
-      && okIcon
-      && okFavicon
-      && okAuthors
-      && okItems;
+    return (
+      okVersion &&
+      okTitle &&
+      okDescription &&
+      okHomePageUrl &&
+      okFeedUrl &&
+      okNextUrl &&
+      okIcon &&
+      okFavicon &&
+      okAuthors &&
+      okItems
+    );
   }
 
   return false;
-};
-
-export const parseFeed = (rawFeed: RawFeed): ParsedFeed => {
-  const {
-    version,
-    title,
-    description,
-    home_page_url,
-    feed_url,
-    next_url,
-    icon,
-    favicon,
-    authors,
-    items,
-  } = rawFeed;
-
-  return {
-    version,
-    title,
-    description,
-    home_page_url: new URL(home_page_url),
-    feed_url: new URL(feed_url),
-    next_url: next_url ? new URL(next_url) : undefined,
-    icon: new URL(icon),
-    favicon: new URL(favicon),
-    authors: authors.map(parseAuthor),
-    items: items.map(parseFeedItem),
-  }
 };

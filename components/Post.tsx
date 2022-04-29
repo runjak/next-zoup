@@ -14,7 +14,7 @@ const Post: FC<{ feedItem: FeedItem }> = ({ feedItem }) => {
           ))}
         </div>
         <div className="content-wrapper">
-          Magic content goes here.
+          {feedItem.content_html}
         </div>
         <div className="actions">
           <button className="repost">Repost</button>

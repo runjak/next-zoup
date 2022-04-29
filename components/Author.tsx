@@ -12,12 +12,14 @@ const Author: FC<{ author: AuthorData }> = ({ author }) => {
     if (hasUrl) {
       return (
         <a href={url} title={name}>
+          {/* eslint-disable-next-line jsx-a11y/alt-text,@next/next/no-img-element */}
           <img className="avatar" src={avatar} referrerPolicy="no-referrer" />
         </a>
       );
     }
 
     return (
+      // eslint-disable-next-line jsx-a11y/alt-text,@next/next/no-img-element
       <img
         className="avatar"
         src={avatar}

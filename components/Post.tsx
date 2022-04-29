@@ -5,9 +5,10 @@ import { FeedItem } from "../feed";
 import Author from "./Author";
 
 const transform = {
-  img: (props: ComponentProps<"img">) => (
-    <img {...props} referrerPolicy="no-referrer" />
-  ),
+  img: (
+    props: ComponentProps<"img">
+    // eslint-disable-next-line jsx-a11y/alt-text,@next/next/no-img-element
+  ) => <img {...props} referrerPolicy="no-referrer" />,
 };
 
 const Post: FC<{ feedItem: FeedItem }> = ({ feedItem }) => {

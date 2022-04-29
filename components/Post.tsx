@@ -17,6 +17,9 @@ const Post: FC<{ feedItem: FeedItem }> = ({ feedItem }) => {
   return (
     <article id={articleId}>
       <div className="meta">
+        <a href={feedItem.url} className="post-anchor">
+          🔗
+        </a>
         <div className="authors">
           {feedItem.authors.map((author, index) => (
             <Author author={author} key={`author-${index}`} />

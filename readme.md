@@ -19,3 +19,9 @@ Afterwards execute `yarn dev` to run a development server at `localhost:3000`.
 For production the project is first built using `yarn build` and afterwards executed with `yarn start`.
 
 The linter is executed with `yarn lint`.
+
+### environment variables
+
+Some configuration is done via environment variables.
+In addition to the environment these can be set via a `.env.local` file.
+The checked in file `.env.example` contains example values and lists all used environment variables.

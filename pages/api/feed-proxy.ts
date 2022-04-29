@@ -1,7 +1,7 @@
 import { isArray, isString } from "lodash";
 import { NextApiRequest, NextApiResponse } from "next";
-import { baseUrl } from "../../config";
 import { Feed, fetchFeed } from "../../feed";
+import { rewriteFeed } from "../../feed/proxy";
 
 type Data = Feed | { error: string };
 
@@ -14,7 +14,7 @@ const base64ToURL = (input: string): URL | null => {
   }
 };
 
-const urlParameter = (request: NextApiRequest): URL | null => {
+export const urlParameter = (request: NextApiRequest): URL | null => {
   const parameter = request.query["url"];
 
   if (isString(parameter)) {
@@ -26,25 +26,6 @@ const urlParameter = (request: NextApiRequest): URL | null => {
   }
 
   return null;
-};
-
-const rewriteFeedUrl = (input: string): string => {
-  let url = new URL(`${baseUrl}/api/feed-proxy`);
-  url.searchParams.append(
-    "url",
-    Buffer.from(input, "utf-8").toString("base64")
-  );
-  return url.href;
-};
-
-const rewriteFeed = (feed: Feed): Feed => {
-  const { feed_url, next_url, ...rest } = feed;
-
-  return {
-    ...rest,
-    feed_url: rewriteFeedUrl(feed_url),
-    next_url: next_url ? rewriteFeedUrl(next_url) : undefined,
-  };
 };
 
 export default async function handler(

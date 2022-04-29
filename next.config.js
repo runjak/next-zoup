@@ -7,11 +7,11 @@ const nextConfig = {
       beforeFiles: [
         {
           source: '/yetzt-proxy/feed.json',
-          destination: "/api/yetzt-proxy"
+          destination: "/api/feed-proxy?url=aHR0cHM6Ly95ZXR6dC5pby9mZWVkLmpzb24="
         },
         {
           source: "/yetzt-proxy/posts/:id.json",
-          destination: "/api/yetzt-proxy/posts/:id",
+          destination: "/api/post-proxy?url=:id",
         },
       ],
     };

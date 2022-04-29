@@ -41,7 +41,7 @@ const Page: FC<Props> = ({ feed }) => {
 export const getServerSideProps: GetServerSideProps<Props> = async (
   context
 ) => {
-  const sourceUrl = new URL(`https://yetzt.io/feed.json`);
+  const sourceUrl = new URL(`http://localhost:3000/api/feed-proxy?url=aHR0cHM6Ly95ZXR6dC5pby9mZWVkLmpzb24=`);
   const maybeFeed = await fetchFeed(sourceUrl);
 
   if (maybeFeed === null) {

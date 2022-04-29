@@ -1,5 +1,6 @@
 import { isArray, isString } from "lodash";
 import { NextApiRequest, NextApiResponse } from "next";
+import { baseUrl } from "../../config";
 import { Feed, fetchFeed } from "../../feed";
 
 type Data = Feed | { error: string };
@@ -28,7 +29,7 @@ const urlParameter = (request: NextApiRequest): URL | null => {
 };
 
 const rewriteFeedUrl = (input: string): string => {
-  let url = new URL("http://localhost:3000/api/feed-proxy");
+  let url = new URL(`${baseUrl}/api/feed-proxy`);
   url.searchParams.append(
     "url",
     Buffer.from(input, "utf-8").toString("base64")

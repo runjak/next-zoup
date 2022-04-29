@@ -1,6 +1,14 @@
-import { FC } from "react";
+import { ComponentProps, FC } from "react";
+import htmr from "htmr";
+
 import { FeedItem } from "../feed";
 import Author from "./Author";
+
+const transform = {
+  img: (props: ComponentProps<"img">) => (
+    <img {...props} referrerPolicy="no-referrer" />
+  ),
+};
 
 const Post: FC<{ feedItem: FeedItem }> = ({ feedItem }) => {
   const articleId = `post-${feedItem.id}`;
@@ -14,7 +22,7 @@ const Post: FC<{ feedItem: FeedItem }> = ({ feedItem }) => {
           ))}
         </div>
         <div className="content-wrapper">
-          {feedItem.content_html}
+          {htmr(feedItem.content_html, { transform })}
         </div>
         <div className="actions">
           <button className="repost">Repost</button>

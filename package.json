@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "htmr": "^1.0.1",
     "lodash": "^4.17.21",
     "next": "12.1.5",
     "react": "18.1.0",

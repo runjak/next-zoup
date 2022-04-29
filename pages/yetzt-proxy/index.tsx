@@ -10,8 +10,8 @@ type Props = {
 
 const Posts: FC<{ items: Array<FeedItem> }> = ({ items }) => (
   <>
-    {items.map((feedItem, index) => (
-      <Post feedItem={feedItem} key={`feed-${index}`} />
+    {items.map((feedItem) => (
+      <Post feedItem={feedItem} key={`post-${feedItem.id}`} />
     ))}
   </>
 );

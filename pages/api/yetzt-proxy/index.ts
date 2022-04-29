@@ -3,6 +3,8 @@ import { fetchFeed, Feed } from "../../../feed";
 
 type Data = Feed | { error: string };
 
+// FIXME add missing CORS handling
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>

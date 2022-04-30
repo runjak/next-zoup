@@ -1,6 +1,7 @@
 import { isArray, isString } from "lodash";
 import { GetServerSideProps } from "next";
 import { FC } from "react";
+import Layout from "../../../components/Layout";
 import Post from "../../../components/Post";
 import { FeedItem, fetchFeedItem } from "../../../feed";
 
@@ -9,7 +10,11 @@ type Props = {
 };
 
 const Page: FC<Props> = (props) => {
-  return <Post feedItem={props.feedItem} />;
+  return (
+    <Layout headline="Cool headline">
+      <Post feedItem={props.feedItem} />
+    </Layout>
+  );
 };
 
 const base64ToPostUrl = (input: string): URL =>

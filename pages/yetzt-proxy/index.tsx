@@ -3,17 +3,18 @@ import { GetServerSideProps } from "next";
 import { fetchFeed, Feed, FeedItem } from "../../feed";
 import Post from "../../components/Post";
 import useFetch from "../../hooks/useFetch";
+import Layout from "../../components/Layout";
 
 type Props = {
   feed: Feed;
 };
 
 const Posts: FC<{ items: Array<FeedItem> }> = ({ items }) => (
-  <>
+  <Layout headline="Some cool headline">
     {items.map((feedItem) => (
       <Post feedItem={feedItem} key={`post-${feedItem.id}`} />
     ))}
-  </>
+  </Layout>
 );
 
 const Page: FC<Props> = ({ feed }) => {

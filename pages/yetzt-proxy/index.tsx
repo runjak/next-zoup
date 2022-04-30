@@ -22,13 +22,13 @@ const Posts: FC<Props> = ({ feed }) => {
       {feed.items.map((feedItem) => (
         <Post feedItem={feedItem} key={`post-${feedItem.id}`} />
       ))}
-      {result !== null ? (
-        <Posts feed={result} />
-      ) : (
+      {Boolean(result) && <Posts feed={result} />}
+      {!result && (
         <button disabled={status === "fetching"} onClick={doFetch}>
           More
         </button>
       )}
+      {status === "done" && !result && <div id="end">This is the end.</div>}
     </>
   );
 };

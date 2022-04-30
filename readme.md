@@ -25,3 +25,13 @@ The linter is executed with `yarn lint`.
 Some configuration is done via environment variables.
 In addition to the environment these can be set via a `.env.local` file.
 The checked in file `.env.example` contains example values and lists all used environment variables.
+
+## todo
+
+- [ ] Login
+- [ ] Registration
+- [ ] Copying/proxying of assets?
+- [ ] Repost
+- [ ] React
+- [ ] Pings, vias/… for posts
+- [ ] Friends & Following

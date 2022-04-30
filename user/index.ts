@@ -9,7 +9,6 @@ import {
 } from "@node-rs/bcrypt";
 import { userDirectory } from "../config";
 import { Author, isAuthor } from "../feed";
-import { HashAndSalt, isHashAndSalt } from "./password";
 
 export type User = {
   author: { name: string } & Author; // Author associated with each user
@@ -18,11 +17,11 @@ export type User = {
 
 export const isUser = (maybeUser: unknown): maybeUser is User => {
   if (isObject(maybeUser)) {
-    const { author, hashAndSalt } = maybeUser as Record<string, unknown>;
+    const { author, hash } = maybeUser as Record<string, unknown>;
 
     const okAuthor = isAuthor(author);
     const okName = okAuthor ? isString(author.name) : false;
-    const okHashAndSalt = isHashAndSalt(hashAndSalt);
+    const okHashAndSalt = isString(hash);
 
     return okAuthor && okName && okHashAndSalt;
   }

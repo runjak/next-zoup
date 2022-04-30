@@ -29,8 +29,8 @@ const Post: FC<{ feedItem: FeedItem }> = ({ feedItem }) => {
           {htmr(feedItem.content_html, { transform })}
         </div>
         <div className="actions">
-          <button className="repost">Repost</button>
-          <button className="react">React</button>
+          <button className="repost" title="Repost">🔄</button>
+          <button className="react" title="React">↩️</button>
         </div>
       </div>
     </article>

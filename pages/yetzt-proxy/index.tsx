@@ -1,23 +1,15 @@
-import react, { FC, useCallback, useMemo, useState } from "react";
 import { GetServerSideProps } from "next";
-import { fetchFeed, Feed, FeedItem } from "../../feed";
-import Post from "../../components/Post";
-import useFetch from "../../hooks/useFetch";
+import { FC, useCallback } from "react";
 import Layout from "../../components/Layout";
+import Post from "../../components/Post";
+import { Feed, fetchFeed } from "../../feed";
+import useFetch from "../../hooks/useFetch";
 
 type Props = {
   feed: Feed;
 };
 
-const Posts: FC<{ items: Array<FeedItem> }> = ({ items }) => (
-  <Layout headline="Some cool headline">
-    {items.map((feedItem) => (
-      <Post feedItem={feedItem} key={`post-${feedItem.id}`} />
-    ))}
-  </Layout>
-);
-
-const Page: FC<Props> = ({ feed }) => {
+const Posts: FC<Props> = ({ feed }) => {
   const nextUrl = feed.next_url;
   const fetchFunction = useCallback(
     async () => (nextUrl ? fetchFeed(new URL(nextUrl)) : null),
@@ -27,9 +19,11 @@ const Page: FC<Props> = ({ feed }) => {
 
   return (
     <>
-      <Posts items={feed.items} />
+      {feed.items.map((feedItem) => (
+        <Post feedItem={feedItem} key={`post-${feedItem.id}`} />
+      ))}
       {result !== null ? (
-        <Page feed={result} />
+        <Posts feed={result} />
       ) : (
         <button disabled={status === "fetching"} onClick={doFetch}>
           More
@@ -39,10 +33,20 @@ const Page: FC<Props> = ({ feed }) => {
   );
 };
 
+const Page: FC<Props> = (props) => {
+  return (
+    <Layout headline="Some cool headline">
+      <Posts {...props} />
+    </Layout>
+  );
+};
+
 export const getServerSideProps: GetServerSideProps<Props> = async (
   context
 ) => {
-  const sourceUrl = new URL(`http://localhost:3000/api/feed-proxy?url=aHR0cHM6Ly95ZXR6dC5pby9mZWVkLmpzb24=`);
+  const sourceUrl = new URL(
+    `http://localhost:3000/api/feed-proxy?url=aHR0cHM6Ly95ZXR6dC5pby9mZWVkLmpzb24=`
+  );
   const maybeFeed = await fetchFeed(sourceUrl);
 
   if (maybeFeed === null) {

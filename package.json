@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@node-rs/bcrypt": "^1.6.0",
     "htmr": "^1.0.1",
     "lodash": "^4.17.21",
     "next": "12.1.5",

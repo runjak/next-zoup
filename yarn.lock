@@ -118,6 +118,90 @@
   resolved "https://registry.yarnpkg.com/@next/swc-win32-x64-msvc/-/swc-win32-x64-msvc-12.1.5.tgz#02f377e4d41eaaacf265e34bab9bacd8efc4a351"
   integrity sha512-/SoXW1Ntpmpw3AXAzfDRaQidnd8kbZ2oSni8u5z0yw6t4RwJvmdZy1eOaAADRThWKV+2oU90++LSnXJIwBRWYQ==
 
+"@node-rs/bcrypt-android-arm-eabi@1.6.0":
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/@node-rs/bcrypt-android-arm-eabi/-/bcrypt-android-arm-eabi-1.6.0.tgz#5a6910b1bc8238f7faf9018f07c70eab8754c39a"
+  integrity sha512-2PcFLjaLgtYpbZHJAqsBiHZUaZKoyXWaGwzTHFPk7cpZEXzgAXZmkpPOXsA6KHdlFeeQhHsvH4DVTCkm02TjOA==
+
+"@node-rs/bcrypt-android-arm64@1.6.0":
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/@node-rs/bcrypt-android-arm64/-/bcrypt-android-arm64-1.6.0.tgz#18db00db9d119feaea553a478a36833422cd8cb7"
+  integrity sha512-zKnRb7Ug5/gtQdqP0QFKZaP6VfnCc84FwMduQ+/v/wAFtXPq0BNc036q8lEXhWX6zKGLQ/tfjRXcaZKeb5DHcQ==
+
+"@node-rs/bcrypt-darwin-arm64@1.6.0":
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/@node-rs/bcrypt-darwin-arm64/-/bcrypt-darwin-arm64-1.6.0.tgz#c64b8bb4b14375505e30400a23621972580e62c0"
+  integrity sha512-hOaNv8GVIxMxna+/DBolwC+g8N0LexeUDCjZySB532p6uRXbHjO0i/z/f4V9W85hqEn+HlunRZu9ouqo98hQKQ==
+
+"@node-rs/bcrypt-darwin-x64@1.6.0":
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/@node-rs/bcrypt-darwin-x64/-/bcrypt-darwin-x64-1.6.0.tgz#494c13dc8baa85b408fc9c8f9ff16a194245ba99"
+  integrity sha512-7VGSoo7pNa5utN9k3usybmKsDAkaFofrnsc73HE0NASNXL7f2nIeFGnsZ59PFAIQQaHusvra6KnKL1xKOj12rw==
+
+"@node-rs/bcrypt-freebsd-x64@1.6.0":
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/@node-rs/bcrypt-freebsd-x64/-/bcrypt-freebsd-x64-1.6.0.tgz#f5472b62d7c5ee84f262597fa84c5960a3427add"
+  integrity sha512-QRcqR7MXCm6kdOsFEPEVDdbYEsEN4Cr07dkc1RU2mEjZ5PyBlytrZQTuwUCt4PetyiQFVuCjvJ85kxwEWNcqBQ==
+
+"@node-rs/bcrypt-linux-arm-gnueabihf@1.6.0":
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/@node-rs/bcrypt-linux-arm-gnueabihf/-/bcrypt-linux-arm-gnueabihf-1.6.0.tgz#7e3cfa38877cddf1c9650af740c6ac5b5a26cdb8"
+  integrity sha512-Y+7vQhu+HgyU+JQIzOAM1XMLaXHGFfPsJcWvepuC96BMV6xqEHENNMlZ7XylKOQKJLNkaCbumt56rtIdqKlBzQ==
+
+"@node-rs/bcrypt-linux-arm64-gnu@1.6.0":
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/@node-rs/bcrypt-linux-arm64-gnu/-/bcrypt-linux-arm64-gnu-1.6.0.tgz#83b89fdd526c4e0dc2e0dd9c42ff4c6b03c2dcd7"
+  integrity sha512-/lgNFfot/1e7liy9DAc641au4Pv9pPY3B+kribDRSclfhPKyFuZLH13Ag43G0WxEIhzKFtmX8bHlpQU6Jh0q4w==
+
+"@node-rs/bcrypt-linux-arm64-musl@1.6.0":
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/@node-rs/bcrypt-linux-arm64-musl/-/bcrypt-linux-arm64-musl-1.6.0.tgz#fca793f967bb893568cb61f84bc86feefd7f83e3"
+  integrity sha512-NVWwIEq2uHUyN++gkZrbkmV4R9/5exREzXnfZPhkQ2TnuvR/i6MLRZfINfAdz0OSsOj941ciwjMkNYwWCVZOPQ==
+
+"@node-rs/bcrypt-linux-x64-gnu@1.6.0":
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/@node-rs/bcrypt-linux-x64-gnu/-/bcrypt-linux-x64-gnu-1.6.0.tgz#187fc83d8d2f336ffc99d77c7dc2e85f2bc1cb8d"
+  integrity sha512-dq1wf5q7woFwmKaSOEOzaoBsGmtZbKNzf8AFCeGtxg/qeXEVc6gUUDXMihy13SdYbIzY2wJefPJxqhjNR8QStw==
+
+"@node-rs/bcrypt-linux-x64-musl@1.6.0":
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/@node-rs/bcrypt-linux-x64-musl/-/bcrypt-linux-x64-musl-1.6.0.tgz#4d18c915a11075cc3a42e5a6c32e1b314fc1579b"
+  integrity sha512-mRb9RSPPP6aDPb8K2M0Iuy6MHUU1iSrLF+4G7OWpIK9M877GEEn8cGuaqHHq30a201pmQMxKFyh3lVpmmwEuUQ==
+
+"@node-rs/bcrypt-win32-arm64-msvc@1.6.0":
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/@node-rs/bcrypt-win32-arm64-msvc/-/bcrypt-win32-arm64-msvc-1.6.0.tgz#a194b99a0522266240e42f791fa8d4f303fb1020"
+  integrity sha512-5AXi2gtUodBrvP8b4fs6E4+7NIy/dj6aYr/YJ7piG6htzzlZ2lhCqrbby8husfGMnvM1VDrKeoBRk3FVtW6dOg==
+
+"@node-rs/bcrypt-win32-ia32-msvc@1.6.0":
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/@node-rs/bcrypt-win32-ia32-msvc/-/bcrypt-win32-ia32-msvc-1.6.0.tgz#6d6a0c028dea59f7207c0bf383df298a6f1d4433"
+  integrity sha512-a6S5SdnabM0PN89UG3GlqwWFeuqiWOfjUgi1KU1/uYDIDsD0z4uL2YINyd8+v+d9Kaca9P5wIkKydYCcKeh+mg==
+
+"@node-rs/bcrypt-win32-x64-msvc@1.6.0":
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/@node-rs/bcrypt-win32-x64-msvc/-/bcrypt-win32-x64-msvc-1.6.0.tgz#1a225e062cf3772cb1259e721a7069bea3e83ea6"
+  integrity sha512-2mnHcqhms0Muj4CJAeJa9mihmratX0sFGDlx5I/Ymr3hYAM8Nwabi4qkjW94+y77gM0OmuTu6jwVI6BTvmDjzw==
+
+"@node-rs/bcrypt@^1.6.0":
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/@node-rs/bcrypt/-/bcrypt-1.6.0.tgz#39c2c5095fa9c0f32a1e22d475b03377c9ae751d"
+  integrity sha512-Mlfjg+B2frA0ZztVCur6rJdV5BXNbuodhBEt1G5UCNJj8CPCYAiAk4OWudsLkHzajAqObBEsGbWSHXKm2MEWuA==
+  optionalDependencies:
+    "@node-rs/bcrypt-android-arm-eabi" "1.6.0"
+    "@node-rs/bcrypt-android-arm64" "1.6.0"
+    "@node-rs/bcrypt-darwin-arm64" "1.6.0"
+    "@node-rs/bcrypt-darwin-x64" "1.6.0"
+    "@node-rs/bcrypt-freebsd-x64" "1.6.0"
+    "@node-rs/bcrypt-linux-arm-gnueabihf" "1.6.0"
+    "@node-rs/bcrypt-linux-arm64-gnu" "1.6.0"
+    "@node-rs/bcrypt-linux-arm64-musl" "1.6.0"
+    "@node-rs/bcrypt-linux-x64-gnu" "1.6.0"
+    "@node-rs/bcrypt-linux-x64-musl" "1.6.0"
+    "@node-rs/bcrypt-win32-arm64-msvc" "1.6.0"
+    "@node-rs/bcrypt-win32-ia32-msvc" "1.6.0"
+    "@node-rs/bcrypt-win32-x64-msvc" "1.6.0"
+
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
   resolved "https://registry.yarnpkg.com/@nodelib/fs.scandir/-/fs.scandir-2.1.5.tgz#7619c2eb21b25483f6d167548b4cfd5a7488c3d5"

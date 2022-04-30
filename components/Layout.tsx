@@ -16,6 +16,10 @@ const headerStyle: CSSProperties = {
 const mainStyle: CSSProperties = {
   display: "flex",
   flex: "1 1",
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
+  gap: '2rem',
   padding: "1rem",
 };
 

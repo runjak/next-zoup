@@ -9,9 +9,3 @@ body {
 * {
   box-sizing: border-box;
 }
-
-/* experimental stuff for experimental reasons */
-img.avatar {
-  width: 48px;
-  height: 48px;
-}

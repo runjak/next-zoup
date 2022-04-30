@@ -1,5 +1,10 @@
-import { FC } from "react";
+import { CSSProperties, FC } from "react";
 import { Author as AuthorData } from "../feed";
+
+const avatarStyle: CSSProperties = {
+  width: '48px',
+  height: '48px'
+};
 
 const Author: FC<{ author: AuthorData }> = ({ author }) => {
   const { name, url, avatar } = author;
@@ -13,7 +18,7 @@ const Author: FC<{ author: AuthorData }> = ({ author }) => {
       return (
         <a href={url} title={name}>
           {/* eslint-disable-next-line jsx-a11y/alt-text,@next/next/no-img-element */}
-          <img className="avatar" src={avatar} referrerPolicy="no-referrer" />
+          <img style={avatarStyle} src={avatar} referrerPolicy="no-referrer" />
         </a>
       );
     }
@@ -21,7 +26,7 @@ const Author: FC<{ author: AuthorData }> = ({ author }) => {
     return (
       // eslint-disable-next-line jsx-a11y/alt-text,@next/next/no-img-element
       <img
-        className="avatar"
+        style={avatarStyle}
         src={avatar}
         title={name}
         referrerPolicy="no-referrer"

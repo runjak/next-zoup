@@ -1,4 +1,4 @@
-import { ComponentProps, CSSProperties, FC } from "react";
+import { ComponentProps, CSSProperties, FC, useCallback } from "react";
 import htmr from "htmr";
 
 import { FeedItem } from "../feed";
@@ -11,8 +11,13 @@ const transform = {
   ) => <img {...props} referrerPolicy="no-referrer" />,
 };
 
-const Post: FC<{ feedItem: FeedItem }> = ({ feedItem }) => {
+type Props = {
+  feedItem: FeedItem;
+};
+
+const Post: FC<Props> = ({ feedItem }) => {
   const articleId = `post-${feedItem.id}`;
+  const action = useCallback(() => alert("not implemented yet"), []);
 
   return (
     <article id={articleId}>
@@ -30,10 +35,10 @@ const Post: FC<{ feedItem: FeedItem }> = ({ feedItem }) => {
         {htmr(feedItem.content_html, { transform })}
       </div>
       <div className="action">
-        <button className="repost" title="Repost">
+        <button className="repost" onClick={action}>
           🔄 Repost
         </button>
-        <button className="react" title="React">
+        <button className="react" onClick={action}>
           ↩️ React
         </button>
       </div>

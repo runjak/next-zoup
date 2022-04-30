@@ -1,4 +1,4 @@
-import { ComponentProps, FC } from "react";
+import { ComponentProps, CSSProperties, FC } from "react";
 import htmr from "htmr";
 
 import { FeedItem } from "../feed";
@@ -17,21 +17,25 @@ const Post: FC<{ feedItem: FeedItem }> = ({ feedItem }) => {
   return (
     <article id={articleId}>
       <div className="meta">
-        <a href={feedItem.url} className="post-anchor">
-          🔗
-        </a>
         <div className="authors">
+          <a href={feedItem.url} className="post-anchor">
+            🔗
+          </a>
           {feedItem.authors.map((author, index) => (
             <Author author={author} key={`author-${index}`} />
           ))}
         </div>
-        <div className="content-wrapper">
-          {htmr(feedItem.content_html, { transform })}
-        </div>
-        <div className="actions">
-          <button className="repost" title="Repost">🔄</button>
-          <button className="react" title="React">↩️</button>
-        </div>
+      </div>
+      <div className="content-wrapper">
+        {htmr(feedItem.content_html, { transform })}
+      </div>
+      <div className="action">
+        <button className="repost" title="Repost">
+          🔄 Repost
+        </button>
+        <button className="react" title="React">
+          ↩️ React
+        </button>
       </div>
     </article>
   );

@@ -6,23 +6,6 @@ type LayoutProps = {
   children: ReactNode;
 };
 
-const headerStyle: CSSProperties = {
-  display: "flex",
-  flex: "1 1",
-  padding: "1rem",
-  borderBottom: "1px solid #666",
-};
-
-const mainStyle: CSSProperties = {
-  display: "flex",
-  flex: "1 1",
-  flexDirection: 'column',
-  alignItems: 'center',
-  justifyContent: 'center',
-  gap: '2rem',
-  padding: "1rem",
-};
-
 const footerStyle: CSSProperties = {
   display: "flex",
   flex: "1 1",
@@ -38,10 +21,10 @@ const Layout: FC<LayoutProps> = ({ headline, children }) => {
       <Head>
         <title>{headline}</title>
       </Head>
-      <header style={headerStyle}>
+      <header>
         <h1>{headline}</h1>
       </header>
-      <main style={mainStyle}>{children}</main>
+      <main>{children}</main>
       <footer style={footerStyle}>
         Powered by &nbsp;
         <a href="https://github.com/runjak/next-zoup">next-zoup</a>.

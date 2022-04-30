@@ -22,7 +22,7 @@ const Posts: FC<Props> = ({ feed }) => {
       {feed.items.map((feedItem) => (
         <Post feedItem={feedItem} key={`post-${feedItem.id}`} />
       ))}
-      {Boolean(result) && <Posts feed={result} />}
+      {result !== null && <Posts feed={result} />}
       {!result && (
         <button disabled={status === "fetching"} onClick={doFetch}>
           More

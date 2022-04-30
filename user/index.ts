@@ -2,13 +2,18 @@ import { PathLike } from "fs";
 import { readFile, writeFile } from "fs/promises";
 import { isObject, isString } from "lodash";
 import path from "path";
+import {
+  DEFAULT_COST,
+  hash as hashBcrypt,
+  verify as verifyBcrypt,
+} from "@node-rs/bcrypt";
 import { userDirectory } from "../config";
 import { Author, isAuthor } from "../feed";
 import { HashAndSalt, isHashAndSalt } from "./password";
 
 export type User = {
   author: { name: string } & Author; // Author associated with each user
-  hashAndSalt: HashAndSalt;
+  hash: string;
 };
 
 export const isUser = (maybeUser: unknown): maybeUser is User => {
@@ -44,3 +49,9 @@ export const readUser = async (name: string): Promise<User | null> => {
 
   return null;
 };
+
+export const hashPassword = (password: string): Promise<string> =>
+  hashBcrypt(password, DEFAULT_COST);
+
+export const verify = (password: string, user: User): Promise<boolean> =>
+  verifyBcrypt(password, user.hash);

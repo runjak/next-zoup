@@ -44,7 +44,7 @@ const isSessionStore = (
 
 const sessionFile = path.join(dataDirectory, "sessions.json");
 
-const initSessions = async (): Promise<Record<string, Session>> => {
+const initSessions = async (): Promise<SessionStore> => {
   try {
     const data = await readFile(sessionFile);
     const maybeSessionStore = JSON.parse(String(data));

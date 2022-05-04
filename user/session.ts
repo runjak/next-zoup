@@ -4,6 +4,7 @@ import path from "path";
 import { v4 as uuidV4 } from "uuid";
 import { User } from ".";
 import { dataDirectory } from "../config";
+import { SessionHandle } from "./session-client";
 
 /**
  * This file aims to define handling of user sessions.
@@ -86,11 +87,11 @@ const storeWithSession = async (
   return { ...store, [sessionIdentifier]: session };
 };
 
-export const makeSession = (user: User): string => {
+export const makeSession = (user: User): SessionHandle => {
   const sessionIdentifier = uuidV4();
   const session: Session = { name: user.author.name };
 
   asyncStore = storeWithSession(sessionIdentifier, session).then(writeSessions);
 
-  return sessionIdentifier;
+  return { sessionIdentifier };
 };

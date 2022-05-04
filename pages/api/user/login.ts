@@ -2,6 +2,7 @@ import { isObject, isString } from "lodash";
 import { NextApiRequest, NextApiResponse } from "next";
 import { readUser, verify } from "../../../user";
 import { makeSession } from "../../../user/session";
+import { SessionHandle } from "../../../user/session-client";
 
 export type LoginData = { username: string; password: string };
 
@@ -15,7 +16,7 @@ const isLoginData = (maybeLoginData: unknown): maybeLoginData is LoginData => {
   return false;
 };
 
-type LoginResponse = { session: string } | { error: string };
+export type LoginResponse = SessionHandle | { error: string };
 
 export default async function handler(
   request: NextApiRequest,
@@ -27,7 +28,7 @@ export default async function handler(
       .json({ error: "request must use 'POST' method." });
   }
 
-  const loginData = request.body;
+  const loginData = JSON.parse(request.body);
   if (!isLoginData(loginData)) {
     return response
       .status(400)
@@ -43,5 +44,5 @@ export default async function handler(
       .json({ error: "invalid username or password." });
   }
 
-  return response.status(200).json({ session: makeSession(user) });
+  return response.status(200).json(makeSession(user));
 }

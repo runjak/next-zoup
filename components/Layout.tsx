@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Link from "next/link";
 import { CSSProperties, FC, ReactNode } from "react";
 
 type LayoutProps = {
@@ -25,9 +26,7 @@ const Layout: FC<LayoutProps> = ({ headline, children }) => {
         <h1>{headline}</h1>
       </header>
       <div id="nav-meta">
-        <a id="login" href="/login" title="Login">
-          🔑
-        </a>
+        <Link href="/login">🔑</Link>
       </div>
       <main>{children}</main>
       <footer style={footerStyle}>

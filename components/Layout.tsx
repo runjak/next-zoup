@@ -24,6 +24,11 @@ const Layout: FC<LayoutProps> = ({ headline, children }) => {
       <header>
         <h1>{headline}</h1>
       </header>
+      <div id="nav-meta">
+        <a id="login" href="/login" title="Login">
+          🔑
+        </a>
+      </div>
       <main>{children}</main>
       <footer style={footerStyle}>
         Powered by &nbsp;

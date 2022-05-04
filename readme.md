@@ -29,9 +29,9 @@ The checked in file `.env.example` contains example values and lists all used en
 ## todo
 
 - [ ] Login
+- [ ] Registration
 - [ ] Repost
 - [ ] Copying/proxying of assets?
-- [ ] Registration
 - [ ] React
 - [ ] Pings, vias/… for posts
 - [ ] Friends & Following

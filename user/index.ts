@@ -8,10 +8,10 @@ import {
   verify as verifyBcrypt,
 } from "@node-rs/bcrypt";
 import { userDirectory } from "../config";
-import { Author, isAuthor } from "../feed";
+import { Author, isAuthor, NamedAuthor } from "../feed";
 
 export type User = {
-  author: { name: string } & Author; // Author associated with each user
+  author: NamedAuthor; // Author associated with each user
   hash: string;
 };
 

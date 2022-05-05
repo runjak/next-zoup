@@ -87,11 +87,13 @@ const storeWithSession = async (
   return { ...store, [sessionIdentifier]: session };
 };
 
-export const makeSession = (user: User): SessionHandle => {
+export const makeSession = (
+  user: User
+): { sessionHandle: SessionHandle; sessionIdentifier: string } => {
   const sessionIdentifier = uuidV4();
   const session: Session = { name: user.author.name };
 
   asyncStore = storeWithSession(sessionIdentifier, session).then(writeSessions);
 
-  return { sessionIdentifier };
+  return { sessionHandle: { author: user.author }, sessionIdentifier };
 };

@@ -44,5 +44,12 @@ export default async function handler(
       .json({ error: "invalid username or password." });
   }
 
-  return response.status(200).json(makeSession(user));
+  const { sessionHandle, sessionIdentifier } = makeSession(user);
+  return response
+    .status(200)
+    .setHeader(
+      "set-cookie",
+      `zoup-session=${sessionIdentifier}; Secure; HttpOnly`
+    )
+    .json(sessionHandle);
 }

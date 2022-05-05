@@ -1,6 +1,7 @@
 import { NextPage } from "next";
 import { useCallback, useState } from "react";
 import Layout from "../components/Layout";
+import { useSessionDispatch } from "../hooks/useSession";
 import { isSessionHandle } from "../user/session-client";
 import { LoginData } from "./api/user/login";
 
@@ -8,8 +9,7 @@ type LoginStatus = "idle" | "fetching" | "loggedIn" | "error";
 
 const useLogin = () => {
   const [status, setStatus] = useState<LoginStatus>("idle");
-
-  // FIXME use context to figure out running session and to set that, too.
+  const sessionDispatch = useSessionDispatch();
 
   const doLogin = useCallback((loginData: LoginData) => {
     setStatus(() => "fetching");
@@ -22,7 +22,7 @@ const useLogin = () => {
 
         if (isSessionHandle(maybeSessionHandle)) {
           setStatus(() => "loggedIn");
-          console.log("got session", maybeSessionHandle);
+          sessionDispatch({ type: "login", sessionHandle: maybeSessionHandle });
         } else {
           setStatus(() => "error");
         }

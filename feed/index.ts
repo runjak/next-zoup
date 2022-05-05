@@ -11,6 +11,8 @@ export type Author = {
   avatar?: string;
 };
 
+export type NamedAuthor = { name: string } & Author;
+
 export const isAuthor = (maybeAuthor: unknown): maybeAuthor is Author => {
   if (isObject(maybeAuthor)) {
     const { name, url, avatar } = maybeAuthor as Record<string, unknown>;

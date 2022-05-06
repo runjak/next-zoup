@@ -1,4 +1,5 @@
 import { NextPage } from "next";
+import Link from "next/link";
 import { useCallback, useState } from "react";
 import Layout from "../components/Layout";
 import { useSessionDispatch } from "../hooks/useSession";
@@ -74,6 +75,7 @@ const Login: NextPage = () => {
           >
             Login
           </button>
+          <Link href='/registration'>Register instead</Link>
         </fieldset>
       </form>
     </Layout>

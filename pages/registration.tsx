@@ -3,25 +3,25 @@ import { useCallback, useState } from "react";
 import Layout from "../components/Layout";
 import { useSessionDispatch } from "../hooks/useSession";
 import { isSessionHandle } from "../user/session-client";
-import { LoginData } from "./api/user/login";
+import { RegistrationData } from "./api/user/registration";
 
-type LoginStatus = "idle" | "fetching" | "loggedIn" | "error";
+type RegistrationStatus = "idle" | "fetching" | "registered" | "error";
 
-const useLogin = () => {
-  const [status, setStatus] = useState<LoginStatus>("idle");
+const useRegistration = () => {
+  const [status, setStatus] = useState<RegistrationStatus>("idle");
   const sessionDispatch = useSessionDispatch();
 
-  const doLogin = useCallback((loginData: LoginData) => {
+  const doRegister = useCallback((registrationData: RegistrationData) => {
     setStatus("fetching");
-    fetch("/api/user/login", {
+    fetch("/api/user/registration", {
       method: "POST",
-      body: JSON.stringify(loginData),
+      body: JSON.stringify(registrationData),
     })
       .then(async (response) => {
         const maybeSessionHandle = await response.json();
 
         if (isSessionHandle(maybeSessionHandle)) {
-          setStatus("loggedIn");
+          setStatus("registered");
           sessionDispatch({ type: "login", sessionHandle: maybeSessionHandle });
         } else {
           setStatus("error");
@@ -32,17 +32,28 @@ const useLogin = () => {
       });
   }, []);
 
-  return { status, doLogin };
+  return { status, doRegister };
 };
 
-const Login: NextPage = () => {
+const Registration: NextPage = () => {
+  const [inviteToken, setInviteToken] = useState<string>("");
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const { status, doLogin } = useLogin();
+  const { status, doRegister } = useRegistration();
 
   return (
-    <Layout headline="Login">
+    <Layout headline="Registration">
       <form>
+        <fieldset>
+          <input
+            type="inviteToken"
+            id="inviteToken"
+            name="inviteToken"
+            placeholder="inviteToken"
+            value={inviteToken}
+            onChange={(event) => setInviteToken(event.target.value)}
+          />
+        </fieldset>
         <fieldset>
           <input
             type="username"
@@ -69,10 +80,10 @@ const Login: NextPage = () => {
             disabled={status === "fetching"}
             onClick={(event) => {
               event.preventDefault();
-              doLogin({ username, password });
+              doRegister({ username, password, inviteToken });
             }}
           >
-            Login
+            Register
           </button>
         </fieldset>
       </form>
@@ -80,4 +91,4 @@ const Login: NextPage = () => {
   );
 };
 
-export default Login;
+export default Registration;

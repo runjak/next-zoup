@@ -1,6 +1,7 @@
 import { isObject, isString } from "lodash";
 import { NextApiRequest, NextApiResponse } from "next";
 import { hashPassword, readUser, User, writeUser } from "../../../user";
+import { sessionCookieName } from "../../../user/cookie";
 import { useInviteKey } from "../../../user/invite";
 import { makeSession } from "../../../user/session";
 import { LoginResponse } from "./login";
@@ -15,8 +16,10 @@ const isRegistrationData = (
   maybeRegistrationData: unknown
 ): maybeRegistrationData is RegistrationData => {
   if (isObject(maybeRegistrationData)) {
-    const { username, password, inviteToken } =
-      maybeRegistrationData as Record<string, unknown>;
+    const { username, password, inviteToken } = maybeRegistrationData as Record<
+      string,
+      unknown
+    >;
 
     return isString(username) && isString(password) && isString(inviteToken);
   }
@@ -63,7 +66,7 @@ export default async function handler(
     .status(200)
     .setHeader(
       "set-cookie",
-      `zoup-session=${sessionIdentifier}; Secure; HttpOnly`
+      `${sessionCookieName}=${sessionIdentifier}; Secure; HttpOnly`
     )
     .json(sessionHandle);
 }

@@ -1,6 +1,7 @@
 import { isObject, isString } from "lodash";
 import { NextApiRequest, NextApiResponse } from "next";
 import { readUser, verify } from "../../../user";
+import { sessionCookieName } from "../../../user/cookie";
 import { makeSession } from "../../../user/session";
 import { SessionHandle } from "../../../user/session-client";
 
@@ -49,7 +50,7 @@ export default async function handler(
     .status(200)
     .setHeader(
       "set-cookie",
-      `zoup-session=${sessionIdentifier}; Secure; HttpOnly`
+      `${sessionCookieName}=${sessionIdentifier}; Secure; HttpOnly`
     )
     .json(sessionHandle);
 }

@@ -1,5 +1,6 @@
 import { NextPage } from "next";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useCallback, useState } from "react";
 import Layout from "../components/Layout";
 import { useSessionDispatch } from "../hooks/useSession";
@@ -11,6 +12,7 @@ type LoginStatus = "idle" | "fetching" | "loggedIn" | "error";
 const useLogin = () => {
   const [status, setStatus] = useState<LoginStatus>("idle");
   const sessionDispatch = useSessionDispatch();
+  const router = useRouter();
 
   const doLogin = useCallback((loginData: LoginData) => {
     setStatus("fetching");
@@ -24,6 +26,7 @@ const useLogin = () => {
         if (isSessionHandle(maybeSessionHandle)) {
           setStatus("loggedIn");
           sessionDispatch({ type: "login", sessionHandle: maybeSessionHandle });
+          router.push("/logout");
         } else {
           setStatus("error");
         }
@@ -75,7 +78,7 @@ const Login: NextPage = () => {
           >
             Login
           </button>
-          <Link href='/registration'>Register instead</Link>
+          <Link href="/registration">Register instead</Link>
         </fieldset>
       </form>
     </Layout>

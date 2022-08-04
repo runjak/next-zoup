@@ -15,7 +15,7 @@ const isRegistrationData = (
   maybeRegistrationData: unknown
 ): maybeRegistrationData is RegistrationData => {
   if (isObject(maybeRegistrationData)) {
-    const { username, password, inviteToken, avatar } =
+    const { username, password, inviteToken } =
       maybeRegistrationData as Record<string, unknown>;
 
     return isString(username) && isString(password) && isString(inviteToken);

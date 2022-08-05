@@ -48,7 +48,7 @@ As there are currently no means to support any kind of moderation it seemed help
   - [x] Logout
   - [x] Deletes
     - [ ] Memo to remember deleting a users data/posts and what that will imply
-  - [ ] localStorage for sessionData?
+  - [x] localStorage for sessionData
   - [ ] Invites
 - [ ] Repost
 - [ ] Copying/proxying of assets?

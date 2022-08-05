@@ -35,7 +35,7 @@ We save at least a name and a salted bcrypt hash of a password.
 User login is based on this password and there is currently no way to support users in resetting their passwords.
 
 User registration depends on invite keys.
-An initial invite key needs to be configured via the `` environment variable.
+An initial invite key needs to be configured via the `INITIAL_INVITE_KEY` environment variable.
 It is intended that users can create further invite keys.
 The idea behind this is to support some organic tradeoff between (somewhat unlikely) but possible growth and enabling users to self-register.
 As there are currently no means to support any kind of moderation it seemed helpful to have some mechanism like this for people sharing a prototypical server.

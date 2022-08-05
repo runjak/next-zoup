@@ -1,4 +1,5 @@
 import { NextPage } from "next";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { useCallback, useState } from "react";
 import Layout from "../../components/Layout";
@@ -8,14 +9,14 @@ type LogoutStatus = "idle" | "fetching" | "loggedOut" | "error";
 
 const useLogout = () => {
   const [status, setStatus] = useState<LogoutStatus>("idle");
-  const sessionState = useSessionState();
+
   const sessionDispatch = useSessionDispatch();
   const router = useRouter();
 
   const doLogout = useCallback(() => {
     setStatus("fetching");
     fetch("/api/user/logout", { method: "DELETE" })
-      .then(async (response) => {
+      .then((response) => {
         if (response.ok) {
           setStatus("loggedOut");
           sessionDispatch({ type: "logout" });
@@ -29,11 +30,12 @@ const useLogout = () => {
       });
   }, []);
 
-  return { status, sessionState, doLogout };
+  return { status, doLogout };
 };
 
 const Logout: NextPage = () => {
-  const { status, sessionState, doLogout } = useLogout();
+  const { status, doLogout } = useLogout();
+  const sessionState = useSessionState();
   const loggedIn = sessionState.sessionHandle !== null;
   const username = sessionState.sessionHandle?.author.name ?? "";
 
@@ -49,6 +51,7 @@ const Logout: NextPage = () => {
           >
             Logout
           </button>
+          <Link href="/user/delete">Delete user instead</Link>
         </fieldset>
       </form>
     </Layout>

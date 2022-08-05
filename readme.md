@@ -46,8 +46,9 @@ As there are currently no means to support any kind of moderation it seemed help
   - [x] Login
   - [x] Registration
   - [x] Logout
+  - [x] Deletes
+  - [ ] localStorage for sessionData?
   - [ ] Invites
-  - [ ] Deletes
 - [ ] Repost
 - [ ] Copying/proxying of assets?
 - [ ] React

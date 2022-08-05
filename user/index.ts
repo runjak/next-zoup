@@ -4,7 +4,7 @@ import {
   verify as verifyBcrypt,
 } from "@node-rs/bcrypt";
 import { PathLike } from "fs";
-import { readFile, writeFile } from "fs/promises";
+import { readFile, writeFile, unlink } from "fs/promises";
 import { isObject, isString } from "lodash";
 import path from "path";
 import { userDirectory } from "../config";
@@ -48,6 +48,8 @@ export const readUser = async (name: string): Promise<User | null> => {
 
   return null;
 };
+
+export const deleteUser = async (user: User) => unlink(pathFromUser(user));
 
 export const hashPassword = (password: string): Promise<string> =>
   hashBcrypt(password, DEFAULT_COST);

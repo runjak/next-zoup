@@ -1,14 +1,14 @@
-import { PathLike } from "fs";
-import { readFile, writeFile } from "fs/promises";
-import { isObject, isString } from "lodash";
-import path from "path";
 import {
   DEFAULT_COST,
   hash as hashBcrypt,
   verify as verifyBcrypt,
 } from "@node-rs/bcrypt";
+import { PathLike } from "fs";
+import { readFile, writeFile } from "fs/promises";
+import { isObject, isString } from "lodash";
+import path from "path";
 import { userDirectory } from "../config";
-import { Author, isAuthor, NamedAuthor } from "../feed";
+import { isAuthor, NamedAuthor } from "../feed";
 
 export type User = {
   author: NamedAuthor; // Author associated with each user

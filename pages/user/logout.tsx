@@ -1,8 +1,8 @@
 import { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useCallback, useState } from "react";
-import Layout from "../components/Layout";
-import { useSessionDispatch, useSessionState } from "../hooks/useSession";
+import Layout from "../../components/Layout";
+import { useSessionDispatch, useSessionState } from "../../hooks/useSession";
 
 type LogoutStatus = "idle" | "fetching" | "loggedOut" | "error";
 
@@ -19,7 +19,7 @@ const useLogout = () => {
         if (response.ok) {
           setStatus("loggedOut");
           sessionDispatch({ type: "logout" });
-          router.push("/login");
+          router.push("/user/login");
         } else {
           setStatus("error");
         }

@@ -2,31 +2,31 @@ import { NextPage } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useCallback, useState } from "react";
-import Layout from "../components/Layout";
-import { useSessionDispatch } from "../hooks/useSession";
-import { isSessionHandle } from "../user/session-client";
-import { RegistrationData } from "./api/user/registration";
+import Layout from "../../components/Layout";
+import { useSessionDispatch } from "../../hooks/useSession";
+import { isSessionHandle } from "../../user/session-client";
+import { LoginData } from "../api/user/login";
 
-type RegistrationStatus = "idle" | "fetching" | "registered" | "error";
+type LoginStatus = "idle" | "fetching" | "loggedIn" | "error";
 
-const useRegistration = () => {
-  const [status, setStatus] = useState<RegistrationStatus>("idle");
+const useLogin = () => {
+  const [status, setStatus] = useState<LoginStatus>("idle");
   const sessionDispatch = useSessionDispatch();
   const router = useRouter();
 
-  const doRegister = useCallback((registrationData: RegistrationData) => {
+  const doLogin = useCallback((loginData: LoginData) => {
     setStatus("fetching");
-    fetch("/api/user/registration", {
+    fetch("/api/user/login", {
       method: "POST",
-      body: JSON.stringify(registrationData),
+      body: JSON.stringify(loginData),
     })
       .then(async (response) => {
         const maybeSessionHandle = await response.json();
 
         if (isSessionHandle(maybeSessionHandle)) {
-          setStatus("registered");
+          setStatus("loggedIn");
           sessionDispatch({ type: "login", sessionHandle: maybeSessionHandle });
-          router.push("/logout");
+          router.push("/user/logout");
         } else {
           setStatus("error");
         }
@@ -36,28 +36,17 @@ const useRegistration = () => {
       });
   }, []);
 
-  return { status, doRegister };
+  return { status, doLogin };
 };
 
-const Registration: NextPage = () => {
-  const [inviteToken, setInviteToken] = useState<string>("");
+const Login: NextPage = () => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const { status, doRegister } = useRegistration();
+  const { status, doLogin } = useLogin();
 
   return (
-    <Layout headline="Registration">
+    <Layout headline="Login">
       <form>
-        <fieldset>
-          <input
-            type="inviteToken"
-            id="inviteToken"
-            name="inviteToken"
-            placeholder="inviteToken"
-            value={inviteToken}
-            onChange={(event) => setInviteToken(event.target.value)}
-          />
-        </fieldset>
         <fieldset>
           <input
             type="username"
@@ -84,16 +73,16 @@ const Registration: NextPage = () => {
             disabled={status === "fetching"}
             onClick={(event) => {
               event.preventDefault();
-              doRegister({ username, password, inviteToken });
+              doLogin({ username, password });
             }}
           >
-            Register
+            Login
           </button>
-          <Link href="/login">Login instead</Link>
+          <Link href="/user/registration">Register instead</Link>
         </fieldset>
       </form>
     </Layout>
   );
 };
 
-export default Registration;
+export default Login;

@@ -26,7 +26,7 @@ const Layout: FC<LayoutProps> = ({ headline, children }) => {
         <h1>{headline}</h1>
       </header>
       <div id="nav-meta">
-        <Link href="/login">🔑</Link>
+        <Link href="/user/login">🔑</Link>
       </div>
       <main>{children}</main>
       <footer style={footerStyle}>

@@ -1,6 +1,7 @@
 import Head from "next/head";
 import Link from "next/link";
 import { CSSProperties, FC, ReactNode } from "react";
+import { useSessionState } from "../hooks/useSession";
 
 type LayoutProps = {
   headline: string;
@@ -17,6 +18,8 @@ const footerStyle: CSSProperties = {
 };
 
 const Layout: FC<LayoutProps> = ({ headline, children }) => {
+  const isLoggedIn = useSessionState().sessionHandle !== null;
+
   return (
     <>
       <Head>
@@ -26,7 +29,15 @@ const Layout: FC<LayoutProps> = ({ headline, children }) => {
         <h1>{headline}</h1>
       </header>
       <div id="nav-meta">
-        <Link href="/user/login">🔑</Link>
+        {isLoggedIn ? (
+          <Link href="/user/logout">
+            <a title="logout">🔒</a>
+          </Link>
+        ) : (
+          <Link href="/user/login">
+            <a title="login">🔓</a>
+          </Link>
+        )}
       </div>
       <main>{children}</main>
       <footer style={footerStyle}>

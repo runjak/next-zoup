@@ -47,6 +47,7 @@ As there are currently no means to support any kind of moderation it seemed help
   - [x] Registration
   - [x] Logout
   - [x] Deletes
+    - [ ] Memo to remember deleting a users data/posts and what that will imply
   - [ ] localStorage for sessionData?
   - [ ] Invites
 - [ ] Repost
